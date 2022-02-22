@@ -1,11 +1,11 @@
 import { Container } from "./styles"
 
-const Button = ({children, color, whidtMobile, ...rest}) => {
+const Button = ({children, color, whidthMobile, ...rest}) => {
 
     return (
         <Container 
             color={color}  
-            whidtMobile={whidtMobile}
+            whidtMobile={whidthMobile}
             {...rest}    
         >{children}</Container>
     )
