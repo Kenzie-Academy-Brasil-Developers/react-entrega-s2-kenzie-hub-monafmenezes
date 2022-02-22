@@ -14,11 +14,11 @@ export default createGlobalStyle`
         --color-primary: #FF577F;
         --color-primary-focus: #FF427F;
         --color-primary-negative: #59323F;
-        --gray-4: #121214;
-        --gray-3: #212529;
-        --gray-2: #343B41;
-        --gray-1: #868e96;
-        --gray-0: #F8F9FA;
+        --grey-4: #121214;
+        --grey-3: #212529;
+        --grey-2: #343B41;
+        --grey-1: #868e96;
+        --grey-0: #F8F9FA;
         --sucess: #3fe864;
         --negative: #e83f5b;
         
@@ -42,3 +42,12 @@ export default createGlobalStyle`
     } 
 
 `
+
+export const colorprimary         = '#FF577F';
+export const colorprimaryfocus    = '#FF427F';
+export const colorprimarynegative = '#59323F';
+export const grey4                = '#121214';
+export const grey3                = '#212529';
+export const grey2                = '#343B41';
+export const grey1                = '#868e96';
+export const grey0                = '#F8F9FA';
