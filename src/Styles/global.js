@@ -7,6 +7,7 @@ export default createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         outline: 0;
+        
     }
 
     
@@ -27,10 +28,11 @@ export default createGlobalStyle`
     body, input, button {
         font-family: 'Inter', sans-serif;
         font-size: 1rem;
-        color: var(--gray-0)
+        color: var(--grey-0)
     }
+
     body {
-        background-color: var(--gray-4);
+        background-color: var(--grey-4);
     }
 
     button {
@@ -42,6 +44,7 @@ export default createGlobalStyle`
     } 
 
 `
+
 
 export const colorprimary         = '#FF577F';
 export const colorprimaryfocus    = '#FF427F';

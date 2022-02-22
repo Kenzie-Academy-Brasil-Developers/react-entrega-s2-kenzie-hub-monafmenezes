@@ -4,7 +4,7 @@ function App() {
   return (
 
     <>
-    <GlobalStyled/>
+      <GlobalStyled/>
       <Routes/>
     </>
     
