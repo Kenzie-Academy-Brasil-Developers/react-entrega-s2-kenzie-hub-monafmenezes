@@ -1,12 +1,13 @@
 import { Container, InputContainer } from "./style"
 
-const Input = ({label, register, name, icon: Icon, error='', ...rest}) => {
+const Input = ({label, register, height, name, icon: Icon, error='', ...rest}) => {
 
     return(
 
         <Container>
 
             <div><p>{label}</p> {!!error && <span> {error}</span>}</div>
+            
             <InputContainer isErrored={!!error}>
 
                 <input {...rest}/>

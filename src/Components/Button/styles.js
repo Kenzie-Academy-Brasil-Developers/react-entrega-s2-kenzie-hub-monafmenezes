@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.button`
     background-color: ${(props) => props.color};
     color: var(--grey-0);
-    height: 38px;
+    height: ${(props) => props.height};
     width: ${(props) => props.widthMobile};
     padding: 0px 22px;
     border: 1px solid ${(props) => props.color};
@@ -18,7 +18,7 @@ export const Container = styled.button`
     }
 
     @media (min-width: 900px){
-        height: 48px;
+        height: ${(props) => props.heigthDesktop};
         width: ${(props) => props.widthDesktop};
     }
 `

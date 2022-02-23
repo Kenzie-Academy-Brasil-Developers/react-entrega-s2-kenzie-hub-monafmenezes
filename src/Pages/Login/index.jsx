@@ -14,9 +14,11 @@ const Login = () => {
                <Input 
                     label='Email' 
                     placeholder='nome@email.com'
+                    height='48px'
                 />
 
                <Input
+                   
                     label='Senha'
                     type='password'
                     placeholder='Sua senha'
@@ -24,6 +26,8 @@ const Login = () => {
                />
 
                 <Buttom 
+                    height='38px'
+                    heigthDesktop='48px'
                     widthMobile='259px' 
                     color={colorprimary}
                     colorHover={colorprimarynegative}
@@ -31,7 +35,10 @@ const Login = () => {
                 >Entrar</Buttom>
 
                 <h5>Ainda não possui uma conta?</h5>
+                
                 <Buttom 
+                    height='38px'
+                    heigthDesktop='48px'
                     widthMobile='259px' 
                     color={grey1}
                     colorHover={grey2}
