@@ -21,6 +21,10 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (min-width: 900px){
+        width: 369px;
+        
+    }
 `
 
 export const Imagem = styled.img `
@@ -33,6 +37,8 @@ export const Imagem = styled.img `
     @media (min-width: 900px){
         width: 144.06px;
         height: 19px;
+        margin-left: 0;
+    
     }
 
 `
@@ -63,6 +69,15 @@ export const Card = styled.div `
         margin-top: 8px;
     }
 
+  
+
+    button {
+        margin-top: 7px;
+        @media (min-width: 900px){
+            margin-top: 15px;
+        }
+    }
+
 
 
     @media (min-width: 900px) {
@@ -71,3 +86,5 @@ export const Card = styled.div `
     }
 
 ` 
+
+

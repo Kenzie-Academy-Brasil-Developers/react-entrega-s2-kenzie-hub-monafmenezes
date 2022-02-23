@@ -3,6 +3,7 @@ import Logo from "../../assets/Logo.svg"
 import Button from '../../Components/Button'
 import {colorprimarynegative, grey1, grey2, grey3} from '../../Styles/global'
 import Input from '../../Components/Input'
+import SelectStatus from "../../Components/Select"
 
 const Register = () => {
 
@@ -53,6 +54,8 @@ const Register = () => {
                     placeholder='Confirme sua senha'
                 />
 
+                <SelectStatus/>
+
                 <Button
                     height='38px'
                     heigthDesktop='48px'
@@ -62,6 +65,7 @@ const Register = () => {
                     color={colorprimarynegative} 
                 
                 >Cadastrar</Button>
+
                 
 
             </Card>
