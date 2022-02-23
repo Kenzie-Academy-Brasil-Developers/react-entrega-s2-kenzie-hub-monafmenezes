@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Redirect, useHistory } from "react-router-dom"
 import api from '../../Services/api'
 import { toast } from "react-toastify"
+import { useState } from "react"
 
 const Login = ({authenticated, setAuthenticated}) => {
 
@@ -24,15 +25,20 @@ const Login = ({authenticated, setAuthenticated}) => {
 
     const history = useHistory()
 
+    const [id, setId] = useState('')
+
     const submit = (data) => {
         api.post('/sessions', data)
+        
 
         .then((response) =>{
             const {token} = response.data
+            setId(response.data.user.id)
             localStorage.setItem('@Kenziehub:token', JSON.stringify(token))
             setAuthenticated(true)
             toast.success('Sucesso ao efetuar login')
-            return history.push('/home')
+            
+        
         })
         .catch((_) => {
             toast.error('Email ou senha inválidos')
@@ -44,7 +50,7 @@ const Login = ({authenticated, setAuthenticated}) => {
     }
 
     if(authenticated) {
-        return <Redirect to='/home'/>
+        return <Redirect to={`/home/${id}`}/>
     }
 
     return(

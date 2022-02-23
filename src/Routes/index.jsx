@@ -22,11 +22,11 @@ const Routes = () => {
             <Route exact path='/'>
                 <Login authenticated={authenticated}  setAuthenticated={setAuthenticated} />
             </Route>
-            <Route exact path='/home'>
-                <Home authenticated={authenticated}  />
+            <Route exact path='/home/:id'>
+                <Home authenticated={authenticated} setAuthenticated={setAuthenticated} />
             </Route>
             <Route exact path='/register'>
-                <Register authenticated={authenticated}  />
+                <Register authenticated={authenticated} />
             </Route>
         </Switch>
     )
