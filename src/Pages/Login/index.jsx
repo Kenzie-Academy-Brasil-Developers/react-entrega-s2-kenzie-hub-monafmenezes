@@ -12,7 +12,7 @@ import api from '../../Services/api'
 import { toast } from "react-toastify"
 import { useState } from "react"
 
-const Login = ({authenticated, setAuthenticated}) => {
+const Login = ({authenticated, setAuthenticated, setId}) => {
 
     const schema = yup.object().shape({
         email: yup.string().email('Email inválido').required('Campo obrigatório'),
@@ -25,7 +25,7 @@ const Login = ({authenticated, setAuthenticated}) => {
 
     const history = useHistory()
 
-    const [id, setId] = useState('')
+    
 
     const submit = (data) => {
         api.post('/sessions', data)
@@ -50,7 +50,7 @@ const Login = ({authenticated, setAuthenticated}) => {
     }
 
     if(authenticated) {
-        return <Redirect to={`/home/${id}`}/>
+        return <Redirect to={`/home`}/>
     }
 
     return(

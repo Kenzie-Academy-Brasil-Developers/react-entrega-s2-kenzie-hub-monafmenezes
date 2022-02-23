@@ -7,10 +7,10 @@ import SelectStatus from "../../Components/Select"
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Redirect, useHistory } from "react-router-dom"
 import api from '../../Services/api'
 import { toast } from "react-toastify"
-import { useParams } from "react-router-dom"
+import { Redirect, useHistory } from "react-router-dom"
+
 
 const Register = ({authenticated}) => {
     const modulos = [
@@ -20,7 +20,6 @@ const Register = ({authenticated}) => {
                 "Quarto módulo (Backend Avançado)"
     ]
 
-    // const {id} = useParams()
     const schema = yup.object().shape({
         name: yup.string().required('Campo obrigatório'),
         email: yup.string().email('Email inválido').required('Campo obrigatório'),
@@ -53,9 +52,9 @@ const Register = ({authenticated}) => {
         history.push('/')
     }
 
-    // if(authenticated) {
-    //     return <Redirect to={`/home/${id}`} />
-    // }
+    if(authenticated) {
+        return <Redirect to={`/home`} />
+    }
 
     return(
 

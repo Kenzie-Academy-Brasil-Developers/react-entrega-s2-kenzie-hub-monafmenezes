@@ -11,14 +11,19 @@ import { useParams } from "react-router-dom"
 import { useEffect } from "react"
 import { toast } from "react-toastify"
 import { useForm } from "react-hook-form"
+import ModalTech from "../../Components/Modal"
 
-
-const Home = ({authenticated, setAuthenticated}) => {
+const Home = ({id, authenticated, setAuthenticated}) => {
 
     const [user, setUser] = useState([])
-    const {id} = useParams()
-    const [tech, setTech] = useState([])
-    const {register, handleSubmit} = useForm
+    // const [tech, setTech] = useState([])
+    // const {register, handleSubmit} = useForm()
+    const [open, setOpen] = useState(false)
+
+
+    const handleClose = () => {
+        setOpen(false)
+    }
 
     const history = useHistory()
 
@@ -40,50 +45,64 @@ const Home = ({authenticated, setAuthenticated}) => {
         history.push('/')
     }
 
+    console.log(open)
+
    
     if(authenticated === false) {
         return <Redirect to='/'/>
     }
 
     return( 
-        <Container>
-            <Navbar>
-                <img src={Logo} alt="Kenzie Hub" />
-                <Button
-                    onClick={handleLogout}
-                    height='32px'
-                    widthMobile='55px' 
-                    color={grey3}
-                    colorHover={grey2}
-                >Sair</Button>
+        <>
+            <ModalTech open={open} handleClose={handleClose} />
+            <Container>
 
-            </Navbar>
+                
 
-            <Header>
-
-                <h1>Olá, {user.name}</h1>
-                <span>{user.course_module}</span>
-
-            </Header>
-
-            <Main>
-                <ContainerModal>
-                    <h2>Tecnologias</h2>
+                <Navbar>
+                    <img src={Logo} alt="Kenzie Hub" />
                     <Button
+                        onClick={handleLogout}
                         height='32px'
-                        widthMobile='32px' 
+                        widthMobile='55px' 
                         color={grey3}
                         colorHover={grey2}
-                    >+</Button>
+                    >Sair</Button>
+                
 
-                </ContainerModal>
-                <Cards>
-                    {user.techs > 0 && <Card techs={user.techs} />}    
-                </Cards>
+                </Navbar>
 
-            </Main>
+                <Header>
 
-        </Container>
+                    <h1>Olá, {user.name}</h1>
+                    <span>{user.course_module}</span>
+
+                </Header>
+
+                <Main>
+                    <ContainerModal>
+
+                        <h2>Tecnologias</h2>
+                        <Button
+                            height='32px'
+                            widthMobile='32px' 
+                            color={grey3}
+                            colorHover={grey2}
+                            onClick={() => setOpen(true)}
+                        >+</Button>
+
+                    
+
+                    </ContainerModal>
+                    <Cards>
+                        {user.techs > 0 && <Card techs={user.techs} />}    
+                    </Cards>
+
+                </Main>
+
+            </Container>
+        
+        </>
     )
 }
 
