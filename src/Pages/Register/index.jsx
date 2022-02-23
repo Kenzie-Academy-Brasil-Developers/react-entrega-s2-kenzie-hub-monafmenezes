@@ -7,10 +7,10 @@ import SelectStatus from "../../Components/Select"
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Redirect, useHistory } from "react-router-dom"
 import api from '../../Services/api'
 import { toast } from "react-toastify"
-import { useParams } from "react-router-dom"
+import { useHistory } from "react-router-dom"
+
 
 const Register = ({authenticated}) => {
     const modulos = [

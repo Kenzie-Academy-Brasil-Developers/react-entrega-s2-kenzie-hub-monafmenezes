@@ -12,13 +12,14 @@ import { useEffect } from "react"
 import { toast } from "react-toastify"
 import { useForm } from "react-hook-form"
 
-
 const Home = ({authenticated, setAuthenticated}) => {
 
     const [user, setUser] = useState([])
     const {id} = useParams()
     const [tech, setTech] = useState([])
     const {register, handleSubmit} = useForm
+
+    const [open, setOpen] = useState(false)
 
     const history = useHistory()
 
@@ -40,6 +41,8 @@ const Home = ({authenticated, setAuthenticated}) => {
         history.push('/')
     }
 
+    console.log(open)
+
    
     if(authenticated === false) {
         return <Redirect to='/'/>
@@ -56,6 +59,7 @@ const Home = ({authenticated, setAuthenticated}) => {
                     color={grey3}
                     colorHover={grey2}
                 >Sair</Button>
+               
 
             </Navbar>
 
@@ -68,12 +72,14 @@ const Home = ({authenticated, setAuthenticated}) => {
 
             <Main>
                 <ContainerModal>
+                    
                     <h2>Tecnologias</h2>
                     <Button
                         height='32px'
                         widthMobile='32px' 
                         color={grey3}
                         colorHover={grey2}
+                        onClick={() => setOpen(true)}
                     >+</Button>
 
                 </ContainerModal>
