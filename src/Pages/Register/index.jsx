@@ -54,7 +54,7 @@ const Register = () => {
                     placeholder='Confirme sua senha'
                 />
 
-                <SelectStatus/>
+                <SelectStatus children='Selecionar módulo' />
 
                 <Button
                     height='38px'

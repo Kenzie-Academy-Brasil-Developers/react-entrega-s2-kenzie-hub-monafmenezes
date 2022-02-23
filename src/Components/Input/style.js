@@ -25,7 +25,7 @@ export const Container = styled.div`
 export const InputContainer = styled.section`
     background-color: var(--grey-2);
     
-    height: 38px;
+    height: 35px;
     border: 1px solid #F8F9FA;
     box-sizing: border-box;
     border-radius: 4px;

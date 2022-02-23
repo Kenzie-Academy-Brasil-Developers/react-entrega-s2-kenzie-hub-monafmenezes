@@ -13,7 +13,7 @@ const Input = ({label, register, height, name, icon: Icon, error='', ...rest}) =
                 <input {...rest}/>
                 {Icon && <Icon size={10} />}
 
-                {/* {...register(name)}  */}
+
             </InputContainer>
             
         </Container>
