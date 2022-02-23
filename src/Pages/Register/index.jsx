@@ -4,8 +4,56 @@ import Button from '../../Components/Button'
 import {colorprimarynegative, grey1, grey2, grey3} from '../../Styles/global'
 import Input from '../../Components/Input'
 import SelectStatus from "../../Components/Select"
+import * as yup from 'yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Redirect, useHistory } from "react-router-dom"
+import api from '../../Services/api'
+import { toast } from "react-toastify"
 
-const Register = () => {
+const Register = ({authenticated}) => {
+    const modulos = [
+                "Primeiro módulo (Introdução ao Frontend)", 
+                "Segundo módulo (Frontend Avançado)",
+                "Terceiro módulo (Introdução ao Backend)",
+                "Quarto módulo (Backend Avançado)"
+    ]
+
+    const schema = yup.object().shape({
+        name: yup.string().required('Campo obrigatório'),
+        email: yup.string().email('Email inválido').required('Campo obrigatório'),
+        password: yup.string().min(6, 'mínimo 6 digitos').required('Campo obrigatório'),
+        password_confirm: yup.string().oneOf([yup.ref('password'), 'Senhas diferentes']).required('Campo obrigatório'),
+        course_module: yup.string().required('Campo obrigatório')
+    })
+
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    const history = useHistory()
+
+    const submit = ({name, email, password, course_module, bio='Lorem ipsum dolor emet', contact='"linkedin/in"'}) => {
+
+        const user = {email, password, name, bio, contact, course_module}
+
+        api.post('/users', user)
+        .then((response) =>{
+            toast.success('Sucesso ao criar a conta')
+            history.push('/')
+        })
+        .catch((_) => {
+            toast.error('Erro ao criar a conta, tente outro email')
+        })
+    
+    }
+    const handleLogin = () => {
+        history.push('/')
+    }
+
+    if(authenticated) {
+        return <Redirect to='/dashboard' />
+    }
 
     return(
 
@@ -20,6 +68,7 @@ const Register = () => {
                     colorHover={grey2}
                     widthDesktop='79px'
                     color={grey3} 
+                    onClick={handleLogin}
                 >Enviar</Button>
 
 
@@ -28,43 +77,66 @@ const Register = () => {
                 <h2>Crie sua conta</h2>
                 <span>Rapido e grátis, vamos nessa</span>
 
-                <Input
-                label='Nome'
-                height='38px'
-                placeholder='Digite aqui seu nome'
-                />
-
-                <Input 
-                    label='Email'
+                <form onSubmit={handleSubmit(submit)}>
+                    <Input
+                    label='Nome'
                     height='38px'
-                    placeholder='Digite aqui seu email'
-                />
+                    placeholder='Digite aqui seu nome'
+                    register={register}
+                    name='name'
+                    error={errors.name?.message}
 
-                <Input 
-                    label='Senha'
-                    height='38px'
-                    type='password'
-                    placeholder='Digite aqui sua senha'
-                />
+                    />
 
-                <Input
-                    label='Confirmar senha'
-                    height='38px'
-                    type='password'
-                    placeholder='Confirme sua senha'
-                />
+                    <Input 
+                        label='Email'
+                        height='38px'
+                        placeholder='Digite aqui seu email'
+                        register={register}
+                        name='email'
+                        error={errors.email?.message}
+                    />
 
-                <SelectStatus children='Selecionar módulo' />
+                    <Input 
+                        label='Senha'
+                        height='38px'
+                        type='password'
+                        placeholder='Digite aqui sua senha'
+                        register={register}
+                        name='password'
+                        error={errors.password?.message}
+                    />
 
-                <Button
-                    height='38px'
-                    heigthDesktop='48px'
-                    widthMobile='260px' 
-                    colorHover={grey1}
-                    widthDesktop='326px'
-                    color={colorprimarynegative} 
-                
-                >Cadastrar</Button>
+                    <Input
+                        label='Confirmar senha'
+                        height='38px'
+                        type='password'
+                        placeholder='Confirme sua senha'
+                        register={register}
+                        name='password_confirm'
+                        error={errors.password_confirm?.message}
+                    />
+
+                    <SelectStatus 
+                        children='Selecionar módulo' 
+                        status={modulos} register={register} 
+                        name='course_module'  
+                        error={errors.course_module?.message}
+                        label='Selecionar módulo'
+                    />
+
+                    <Button
+                        height='38px'
+                        heigthDesktop='48px'
+                        widthMobile='260px' 
+                        colorHover={grey1}
+                        widthDesktop='326px'
+                        color={colorprimarynegative} 
+                        type='submit'
+                    
+                    >Cadastrar</Button>
+
+                </form>
 
                 
 

@@ -6,14 +6,13 @@ const Input = ({label, register, height, name, icon: Icon, error='', ...rest}) =
 
         <Container>
 
-            <div><p>{label}</p> {!!error && <span> {error}</span>}</div>
-            
+            <div><p>{label} {!!error && <span> - {error}</span>}</p></div>
             <InputContainer isErrored={!!error}>
 
-                <input {...rest}/>
+                <input {...rest}  {...register(name)}/>
                 {Icon && <Icon size={10} />}
 
-
+               
             </InputContainer>
             
         </Container>

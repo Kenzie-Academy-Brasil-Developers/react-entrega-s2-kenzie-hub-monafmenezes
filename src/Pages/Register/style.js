@@ -55,6 +55,12 @@ export const Card = styled.div `
     border-radius: 3px;
     height: 432px;
 
+    form{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     h2 {
         font-weight: bold;
         font-size: 14px;
