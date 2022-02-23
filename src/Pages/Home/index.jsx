@@ -24,7 +24,6 @@ const Home = ({id, authenticated, setAuthenticated}) => {
     const handleClose = () => {
         setOpen(false)
     }
-
     const history = useHistory()
 
     const loadTechs = () => {
