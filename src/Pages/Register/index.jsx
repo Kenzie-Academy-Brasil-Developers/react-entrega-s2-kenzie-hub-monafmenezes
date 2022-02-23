@@ -69,7 +69,7 @@ const Register = ({authenticated}) => {
                     widthDesktop='79px'
                     color={grey3} 
                     onClick={handleLogin}
-                >Enviar</Button>
+                >Voltar</Button>
 
 
             </Content>

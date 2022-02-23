@@ -20,7 +20,7 @@ export const Imagem = styled.img `
 
 `
 
-export const Card = styled.div `
+export const Card = styled.form `
     display: flex;
     flex-direction: column;
     align-items: center;
