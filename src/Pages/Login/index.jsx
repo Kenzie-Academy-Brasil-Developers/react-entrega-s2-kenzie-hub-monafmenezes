@@ -31,7 +31,7 @@ const Login = ({authenticated, setAuthenticated}) => {
             const {token} = response.data
             localStorage.setItem('@Kenziehub:token', JSON.stringify(token))
             setAuthenticated(true)
-            toast.success('Sucesso ao criar a conta')
+            toast.success('Sucesso ao efetuar login')
             return history.push('/home')
         })
         .catch((_) => {
@@ -79,6 +79,7 @@ const Login = ({authenticated, setAuthenticated}) => {
                     color={colorprimary}
                     colorHover={colorprimarynegative}
                     widthDesktop='324px'
+                    type='submit'
                 >Entrar</Buttom>
 
                 <h5>Ainda não possui uma conta?</h5>

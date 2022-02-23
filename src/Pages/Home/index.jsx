@@ -1,11 +1,8 @@
-import { grey2, colorprimary } from "../../Styles/global"
-import Button from "../../Components/Button"
-import Input from "../../Components/Input"
 import { Redirect } from "react-router-dom"
 
 const Home = ({authenticated}) => {
 
-    if(!authenticated) {
+    if(authenticated === false) {
         return <Redirect to='/'/>
     }
 
