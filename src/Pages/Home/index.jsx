@@ -53,11 +53,14 @@ const Home = ({id, authenticated, setAuthenticated}) => {
 
     return( 
         <>
-            <ModalTech open={open} handleClose={handleClose} />
+            <ModalTech 
+                children='Cadastrar Tecnologia'     
+                open={open} 
+                handleClose={handleClose}
+                titulo='Cadastrar Tecnologia'    
+            />
+
             <Container>
-
-                
-
                 <Navbar>
                     <img src={Logo} alt="Kenzie Hub" />
                     <Button
@@ -93,7 +96,7 @@ const Home = ({id, authenticated, setAuthenticated}) => {
                     
 
                     </ContainerModal>
-                    <Cards>
+                    <Cards onClick={() => handleLogout}>
                         {user.techs > 0 && <Card techs={user.techs} />}    
                     </Cards>
 

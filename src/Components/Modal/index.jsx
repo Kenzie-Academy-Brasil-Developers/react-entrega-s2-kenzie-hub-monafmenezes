@@ -2,13 +2,30 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import Typography from '@mui/material/Typography';
 import Button from '../Button';
+import Input from '../Input'
+import SelectStatus from '../Select'
+import * as yup from 'yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Redirect, useHistory } from "react-router-dom"
+import api from '../../Services/api'
+import { colorprimary, colorprimarynegative } from '../../Styles/global';
 
 
-const ModalTech = ({open, handleClose}) => {
+const ModalTech = ({open, handleClose, children, titulo, tecnologia}) => {
+  const Status = ['iniciante', 'intermediário', 'avançado']
 
+      const schema = yup.object().shape({
+        title: yup.string().required('Campo obrigatório'),
+        status: yup.string().required('Campo obrigatório')
+      })
 
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    const history = useHistory()
 
     return (
         
@@ -16,8 +33,14 @@ const ModalTech = ({open, handleClose}) => {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open} 
-        sx={{width: 330,
-            height: 330,
+        sx={{width: 310,
+            height: 350,
+            display: 'flex',
+            flexDirection:'column',
+            alignItems: 'center',
+            justifyContent:'center',
+            margin: 'auto'
+           
         }}
         
       >
@@ -26,33 +49,43 @@ const ModalTech = ({open, handleClose}) => {
             onClose={handleClose} 
             sx={{
                 backgroundColor: '#343B41',
-                height: 40}}>
-        Cadastrar Tecnologia
+                height: 50}}>
+        {titulo}
         </DialogTitle>
         <DialogContent dividers sx={{backgroundColor: '#212529'}} >
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-            magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-            ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+        <Input 
+                register={register}  
+                name='title' 
+                label='Nome do projeto'
+                placeholder={tecnologia} 
+                error={errors.title?.message}
+              /> 
+              <SelectStatus 
+                register={register}  
+                name='status'
+                error={errors.status?.message}
+                label='Selecionar status'
+                children='Selecionar módulo' 
+                status={Status} 
+                      
+              />   
         </DialogContent>
         <DialogActions sx={{backgroundColor: '#212529',
-                            height:70}} >
-          {/* <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button> */}
-            <Button>
-            Cadastrar Tecnologia
-            </Button>
+                            height:70, paddingBottom: 5}} >
+
+                            
+              <Button
+                height='38px'
+                heigthDesktop='48px'
+                widthMobile='259px' 
+                color={colorprimary}
+                colorHover={colorprimarynegative}
+                widthDesktop='324px'
+                type='submit'
+              >
+              {children}
+              </Button>
+
         </DialogActions>
 
       </Dialog>

@@ -2,6 +2,10 @@ import { Container, InputContainer } from "./style"
 
 const Input = ({label, register, height, name, icon: Icon, error='', ...rest}) => {
 
+    
+
+
+
     return(
 
         <Container>
