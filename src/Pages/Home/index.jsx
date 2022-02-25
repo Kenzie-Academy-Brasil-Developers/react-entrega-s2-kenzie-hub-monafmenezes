@@ -7,44 +7,65 @@ import {grey2, grey3} from '../../Styles/global'
 import { useHistory } from "react-router-dom"
 import api from "../../Services/api"
 import { useState } from "react"
-import { useParams } from "react-router-dom"
 import { useEffect } from "react"
 import { toast } from "react-toastify"
-import { useForm } from "react-hook-form"
 import ModalTech from "../../Components/Modal"
+import ModalStatus from '../../Components/ModalStatus'
 
 const Home = ({id, authenticated, setAuthenticated, token}) => {
 
-    const [user, setUser] = useState([])
-    // const [tech, setTech] = useState({})
-    // const {register, handleSubmit} = useForm()
+    const [user, setUser] = useState({})
+    const [tech, setTech] = useState({})
     const [open, setOpen] = useState(false)
+    const [openStatus, setOpenStatus] = useState(false)
+    const [techs, setTechs] = useState([])
 
-
+ 
     const handleClose = () => {
         setOpen(false)
     }
+
+    const handleStatus = () => {
+        setOpenStatus(false)
+    }
+
+
     const history = useHistory()
+
+    const loadUserInfor = () => {
+        api.get(`users/${id}`)
+
+        .then((response) => {   
+            setTechs(response.data.techs)
+            setUser(response.data) 
+
+        }).catch((_) => toast.error('Algo deu errado!'))
+
+    }
+
 
     const loadTechs = () => {
         api.get(`users/${id}`)
+
         .then((response) => {   
-             setUser(response.data)   
+            setTechs(response.data.techs)
+           
         }).catch((_) => toast.error('Algo deu errado!'))
+
     }
 
     useEffect(() => {
-        loadTechs()
+        loadUserInfor()
     }, [])
 
 
     const handleLogout = () => {
-        localStorage.clear()
         setAuthenticated(false)
+        localStorage.clear()
         history.push('/')
     }
 
-    console.log(open)
+
 
    
     if(authenticated === false) {
@@ -52,13 +73,27 @@ const Home = ({id, authenticated, setAuthenticated, token}) => {
     }
 
     return( 
+        
         <>
+        {console.log(tech)}
             <ModalTech 
                 children='Cadastrar Tecnologia'     
                 open={open} 
                 handleClose={handleClose}
                 titulo='Cadastrar Tecnologia'   
                 token={token} 
+                loadTechs={loadTechs}
+
+            />
+
+            <ModalStatus
+                open={openStatus}
+                handleClose={handleStatus}
+                token={token} 
+                techs={techs}
+                loadTechs={loadTechs}
+                tech={tech}
+            
             />
 
             <Container>
@@ -97,8 +132,8 @@ const Home = ({id, authenticated, setAuthenticated, token}) => {
                     
 
                     </ContainerModal>
-                    <Cards onClick={() => handleLogout}>
-                        {user.techs > 0 && <Card techs={user.techs} />}    
+                    <Cards onClick={() => handleLogout} >
+                        {user.techs !== undefined  && <Card techs={techs} setTech={setTech} setOpenStatus={setOpenStatus} />}    
                     </Cards>
 
                 </Main>

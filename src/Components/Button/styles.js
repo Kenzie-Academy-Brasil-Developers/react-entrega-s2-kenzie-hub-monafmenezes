@@ -12,6 +12,7 @@ export const Container = styled.button`
     margin: 0px 22px;
     transition: 0.5s;
     margin-top: 19px;
+    font-size: 12px;
     :hover{
         border: 1.5px solid ${(props) => props.colorHover};
         background-color: ${(props) => props.colorHover};
@@ -20,5 +21,6 @@ export const Container = styled.button`
     @media (min-width: 900px){
         height: ${(props) => props.heigthDesktop};
         width: ${(props) => props.widthDesktop};
+        font-size: 16px;
     }
 `

@@ -8,29 +8,27 @@ import SelectStatus from '../Select'
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Redirect, useHistory } from "react-router-dom"
+
 import api from '../../Services/api'
-import { colorprimary, colorprimarynegative } from '../../Styles/global';
+import { colorprimary, colorprimarynegative, grey1 } from '../../Styles/global';
 import { toast } from 'react-toastify';
 
 
-const ModalTech = ({open, handleClose, loadTechs, token, children, titulo, tecnologia}) => {
+const ModalTech = ({open, handleClose, loadTechs, tech, token}) => {
   const Status = ['Iniciante', 'Intermediário', 'Avançado']
-
+    
       const schema = yup.object().shape({
-        title: yup.string().required('Campo obrigatório'),
-        status: yup.string().required('Campo obrigatório')
+        status: yup.string()
       })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     })
 
-    const submit = ({title, status}) => {
-      
-      api.post('/users/techs', 
+    const submit = ({status}) => {
+
+      api.put(`/users/techs/${tech.id}`, 
       {
-        title: title, 
         status: status
       }, 
       {
@@ -39,16 +37,39 @@ const ModalTech = ({open, handleClose, loadTechs, token, children, titulo, tecno
       }
       })
       .then((response) =>{
-        toast.success('Sucesso ao cadastrar tecnologia')
-        loadTechs()
-    
+        toast.success('Sucesso ao alterar status')
+       loadTechs()
+        
+       
     })
     .catch((_) => {
-        toast.error('Erro ao cadastrar tecnologia')
+        toast.error('Erro ao alterar status')
     })
     }
 
-    return (
+
+   const submitDelete = () => {
+    api.delete(`/users/techs/${tech.id}`,  
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+    }
+    })
+    .then((response) =>{
+      toast.success('Sucesso ao excluir')
+      loadTechs()
+
+     
+  })
+  .catch((_) => {
+      toast.error('Erro ao alterar excluir')
+  })
+
+  }
+
+  
+
+ return (
         
         <Dialog
         onClose={handleClose}
@@ -71,22 +92,23 @@ const ModalTech = ({open, handleClose, loadTechs, token, children, titulo, tecno
             sx={{
                 backgroundColor: '#343B41',
                 height: 50}}>
-        {titulo}
+        Tecnologia Detalhes
         </DialogTitle>
+
         <form onSubmit={handleSubmit(submit)}>
+
         <DialogContent dividers sx={{backgroundColor: '#212529'}} >
         <Input 
                 register={register}  
-                name='title' 
+                name='Titulo' 
+                defaultValue={tech?.title}
                 label='Nome do projeto'
-                placeholder='Nome'
-                error={errors.title?.message}
-                v
+
+            
               /> 
               <SelectStatus 
                 register={register}  
                 name='status'
-                error={errors.status?.message}
                 label='Selecionar status'
                 children='Selecionar módulo' 
                 status={Status} 
@@ -99,13 +121,26 @@ const ModalTech = ({open, handleClose, loadTechs, token, children, titulo, tecno
               <Button
                 height='38px'
                 heigthDesktop='48px'
-                widthMobile='259px' 
+                widthMobile='120px' 
                 color={colorprimary}
                 colorHover={colorprimarynegative}
-                widthDesktop='324px'
+                widthDesktop='204px'
                 type='submit'
               >
-              {children}
+              Salvar alterações
+              </Button>
+
+              <Button
+                height='38px'
+                heigthDesktop='48px'
+                widthMobile='98px' 
+                color={grey1}
+                colorHover={colorprimarynegative}
+                widthDesktop='98px'
+                type='button' 
+                onClick={submitDelete}
+              >
+             Excluir
               </Button>
 
         </DialogActions>
@@ -118,4 +153,3 @@ const ModalTech = ({open, handleClose, loadTechs, token, children, titulo, tecno
 }
 
 export default ModalTech
-

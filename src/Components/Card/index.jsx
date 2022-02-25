@@ -1,22 +1,22 @@
 import { Container, List } from "./style"
-import Button from '../../Components/Button'
 
-const Card = ({techs, advancedSchema=false, ...rest}) => {
+const Card = ({techs, setTech, advancedSchema=false, setOpenStatus,  ...rest}) => {
 
+    const submit = (tech) =>{
+        setTech(tech)
+        setOpenStatus(true)
+    }
     
-
     return(
 
         <Container advancedSchema={advancedSchema} {...rest}>
-
             {techs.map((tech) => (
                 
                 <List key={tech.title}>
                     <h2>{tech.title}</h2>
-                    <Button>{tech.title}</Button>
+                    <button onClick={ () =>submit(tech)}>{tech.status}</button>
                 </List>
             ))}
-        
         </Container>
 
     )

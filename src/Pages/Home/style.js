@@ -110,12 +110,9 @@ export const Cards = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start  ;
     background-color: var(--grey-3);
-    overflow: auto;
-    ::-webkit-scrollbar {
-        width: 0px;
-    }
+   
 
     @media (min-width: 900px) {
         width: 779px;
