@@ -1,4 +1,5 @@
 import { Container, List } from "./style"
+import Button from '../../Components/Button'
 
 const Card = ({techs, advancedSchema=false, ...rest}) => {
 
@@ -12,7 +13,7 @@ const Card = ({techs, advancedSchema=false, ...rest}) => {
                 
                 <List key={tech.title}>
                     <h2>{tech.title}</h2>
-                    <span>{tech.title}</span>
+                    <Button>{tech.title}</Button>
                 </List>
             ))}
         

@@ -8,10 +8,12 @@ const Routes = () => {
     
     const [authenticated, setAuthenticated] = useState(false)
     const [id, setId] = useState('')
+    const [token, setToken] = useState('')
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('@Kenziehub:token'))
         if(token) {
+            setToken(token)
             return setAuthenticated(true)
         }
     }, [authenticated])
@@ -23,7 +25,7 @@ const Routes = () => {
                 <Login setId={setId} authenticated={authenticated}  setAuthenticated={setAuthenticated} />
             </Route>
             <Route exact path='/home'>
-                <Home authenticated={authenticated} setAuthenticated={setAuthenticated} id={id} />
+                <Home authenticated={authenticated} setAuthenticated={setAuthenticated} id={id}  token={token}/>
             </Route>
             <Route exact path='/register'>
                 <Register authenticated={authenticated}  />

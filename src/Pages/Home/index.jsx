@@ -13,10 +13,10 @@ import { toast } from "react-toastify"
 import { useForm } from "react-hook-form"
 import ModalTech from "../../Components/Modal"
 
-const Home = ({id, authenticated, setAuthenticated}) => {
+const Home = ({id, authenticated, setAuthenticated, token}) => {
 
     const [user, setUser] = useState([])
-    // const [tech, setTech] = useState([])
+    // const [tech, setTech] = useState({})
     // const {register, handleSubmit} = useForm()
     const [open, setOpen] = useState(false)
 
@@ -57,7 +57,8 @@ const Home = ({id, authenticated, setAuthenticated}) => {
                 children='Cadastrar Tecnologia'     
                 open={open} 
                 handleClose={handleClose}
-                titulo='Cadastrar Tecnologia'    
+                titulo='Cadastrar Tecnologia'   
+                token={token} 
             />
 
             <Container>

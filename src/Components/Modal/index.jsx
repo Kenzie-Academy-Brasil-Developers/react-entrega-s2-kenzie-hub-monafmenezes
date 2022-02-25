@@ -11,10 +11,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Redirect, useHistory } from "react-router-dom"
 import api from '../../Services/api'
 import { colorprimary, colorprimarynegative } from '../../Styles/global';
+import { toast } from 'react-toastify';
 
 
-const ModalTech = ({open, handleClose, children, titulo, tecnologia}) => {
-  const Status = ['iniciante', 'intermediário', 'avançado']
+const ModalTech = ({open, handleClose, token, children, titulo, tecnologia}) => {
+  const Status = ['Iniciante', 'Intermediário', 'Avançado']
 
       const schema = yup.object().shape({
         title: yup.string().required('Campo obrigatório'),
@@ -25,7 +26,26 @@ const ModalTech = ({open, handleClose, children, titulo, tecnologia}) => {
         resolver: yupResolver(schema)
     })
 
-    const history = useHistory()
+    const submit = ({title, status}) => {
+      
+      api.post('/users/techs', 
+      {
+        title: title, 
+        status: status
+      }, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+      }
+      })
+      .then((response) =>{
+        toast.success('Sucesso ao cadastrar tecnologia')
+    })
+    .catch((_) => {
+        toast.error('Erro ao cadastrar tecnologia')
+    })
+    }
+
 
     return (
         
@@ -52,6 +72,7 @@ const ModalTech = ({open, handleClose, children, titulo, tecnologia}) => {
                 height: 50}}>
         {titulo}
         </DialogTitle>
+        <form onSubmit={handleSubmit(submit)}>
         <DialogContent dividers sx={{backgroundColor: '#212529'}} >
         <Input 
                 register={register}  
@@ -72,7 +93,6 @@ const ModalTech = ({open, handleClose, children, titulo, tecnologia}) => {
         </DialogContent>
         <DialogActions sx={{backgroundColor: '#212529',
                             height:70, paddingBottom: 5}} >
-
                             
               <Button
                 height='38px'
@@ -88,6 +108,8 @@ const ModalTech = ({open, handleClose, children, titulo, tecnologia}) => {
 
         </DialogActions>
 
+
+        </form>
       </Dialog>
 
     )
